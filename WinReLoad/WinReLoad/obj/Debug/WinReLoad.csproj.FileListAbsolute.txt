@@ -1,0 +1,10 @@
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\bin\Debug\WinReLoad.exe.config
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\bin\Debug\WinReLoad.exe
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\bin\Debug\WinReLoad.pdb
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.csprojAssemblyReference.cache
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.Form1.resources
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.Properties.Resources.resources
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.csproj.GenerateResource.cache
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.csproj.CoreCompileInputs.cache
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.exe
+X:\Programing\Windows Forms\WinReLoad\WinReLoad\obj\Debug\WinReLoad.pdb
