@@ -1,16 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using Org.BouncyCastle.Cms;
 using Org.BouncyCastle.X509;
+using System.Text;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Pkcs;
@@ -26,95 +21,10 @@ using Org.BouncyCastle.Asn1.Cms;
 using System.Text.RegularExpressions;
 using Org.BouncyCastle.Utilities.IO.Pem;
 
-
-
 using OpenSsl = Org.BouncyCastle.OpenSsl;
-
-
-    
-
-
-
-namespace WinReLoad
-{
-
-    public partial class Form1 : Form
-    {
-        //VARIABLES
-        bool installed = false;
-
-        public Form1()
-        {
-            InitializeComponent();
-            this.lstFileUpload.DragDrop += new
-           System.Windows.Forms.DragEventHandler(this.listBox1_DragDrop);
-            this.lstFileUpload.DragEnter += new
-                       System.Windows.Forms.DragEventHandler(this.listBox1_DragEnter);
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-            //Find APK and extract it to temp folder and backup folder (skip for now)
-            //Check for libmodloader.so
-            //if found libmodloader { Go to mod loading form }
-            //else allow user to select install ReLoad
-            //function for installing reload:
-            //run apkifier and put in both lib files + mod folder
-            //delete old pistol whip apk from quest and install new with adb
-            //check it worked
-            //delete temp file
-            //move to mod loader form
-
-
-        }
-        //Animation Stuff For Drag + Drop
-        private void listBox1_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.All;
-            else
-                e.Effect = DragDropEffects.None;
-        }
-        //Drag + Drop
-        private void listBox1_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
-        {
-            //Get File Location
-            string[] fileLocation = (string[])e.Data.GetData(DataFormats.FileDrop, false);            
-            lstFileUpload.Items.Add(fileLocation[0]);
-
-            //Set Up Copy + Paste Vars
-            string sourcePath = fileLocation[0];
-            string targetPath = @"..\..\Temp\" + "PistolWhip.apk";
-            string targetPathb = @"..\..\Backup\" + "PistolWhip.apk";
-
-            System.IO.File.Copy(sourcePath, targetPath, true);
-        }
-    }
-    
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
 
 namespace Emulamer.Utils
 {
-    
     public class Apkifier : IDisposable
     {
         private SHA1 _sha = SHA1Managed.Create();
@@ -156,7 +66,7 @@ namespace Emulamer.Utils
             _filename = filename;
             _sign = sign;
             _readOnly = readOnly;
-
+            
             if (pemCertificateData != null)
             {
                 _pemData = pemCertificateData;
@@ -174,7 +84,7 @@ namespace Emulamer.Utils
                 _archive = ZipFile.Open(_filename, ZipArchiveMode.Update);
         }
 
-
+        
 
         public void LoadCert(byte[] certData)
         {
@@ -232,7 +142,7 @@ namespace Emulamer.Utils
             using (FileStream fs = File.Open(inputFileName, FileMode.Open, FileAccess.Read))
             {
                 Write(fs, targetPath, overwrite, compress);
-            }
+            }          
         }
 
         /// <summary>
@@ -377,7 +287,7 @@ namespace Emulamer.Utils
 
 
                 //write the SF to memory then copy it out to the actual file- contents will be needed later to use for signing, don't want to hit the zip stream twice
-
+                
                 byte[] sigFileBytes = null;
 
                 using (StreamWriter swSignatureFile = GetSW(msSigFile))
@@ -410,10 +320,10 @@ namespace Emulamer.Utils
                         x.Delete();
                     });
                 }
-
+               
                 //write the 3 files                
                 msManifestFile.Seek(0, SeekOrigin.Begin);
-
+                
                 var manifestEntry = _archive.CreateEntry("META-INF/MANIFEST.MF");
                 using (Stream s = manifestEntry.Open())
                 {
@@ -475,7 +385,7 @@ namespace Emulamer.Utils
                     {
                         swSFFile.WriteLine($"Name: {sourceFile.FullName}");
                         swSFFile.WriteLine($"SHA1-Digest: {hashOfMFSection}");
-                        swSFFile.WriteLine();
+                        swSFFile.WriteLine(); 
                     }
 
                     msSection.Seek(0, SeekOrigin.Begin);
@@ -512,7 +422,7 @@ namespace Emulamer.Utils
             using (var writer = new StringWriter())
             {
                 var pemWriter = new OpenSsl.PemWriter(writer);
-
+                                
                 pemWriter.WriteObject(new PemObject("CERTIFICATE", cert.GetEncoded()));
                 pemWriter.WriteObject(subjectKeyPair.Private);
                 return writer.ToString();
@@ -555,7 +465,7 @@ namespace Emulamer.Utils
         private byte[] SignIt(byte[] sfFileData)
         {
             AsymmetricKeyParameter privateKey = null;
-
+            
             var cert = LoadCert(_pemData, out privateKey);
 
             //create things needed to make the CmsSignedDataGenerator work
