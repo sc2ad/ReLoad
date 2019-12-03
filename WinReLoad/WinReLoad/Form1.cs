@@ -39,9 +39,6 @@ namespace WinReLoad
     {
         //VARIABLES
         bool installed = false;
-        string modName = "";
-        string computerDrive;
-        int i;
 
         public Form1()
         {
@@ -55,16 +52,10 @@ namespace WinReLoad
 
         private void Main_Load(object sender, EventArgs e)
         {
-            foreach (var drive in DriveInfo.GetDrives())
-            {
-                computerDrive = drive.Name;
-                FileInfo FileCheck = new FileInfo(computerDrive + @"\Internal shared storage\Android\data\com.cloudheadgames.pistolwhip\files\mods");
-                if (FileCheck.FullName != modName)
-                {
-                    Application.Exit();
-                }
-            };
-            
+            //Find APK and extract it to temp folder
+            //Check for 
+
+
         }
     }
 
