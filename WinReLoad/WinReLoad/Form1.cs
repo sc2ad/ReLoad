@@ -51,9 +51,9 @@ namespace WinReLoad
             Application.Exit();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Main_Load(object sender, EventArgs e)
         {
-            FileInfo FileCheck = new FileInfo("This PC\\Quest\\Internal shared storage\\Android\\data\\com.cloudheadgames.pistolwhip\files" + "\\mods");
+            FileInfo FileCheck = new FileInfo(@"This PC\\Quest\\Internal shared storage\\Android\\data\\com.cloudheadgames.pistolwhip\files" + "\\mods");
             if (FileCheck.FullName != modName)
             {
                 Application.Exit();
