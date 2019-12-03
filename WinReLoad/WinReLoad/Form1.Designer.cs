@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.txtTesting = new System.Windows.Forms.TextBox();
+            this.lstFileUpload = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // button1
@@ -45,12 +45,15 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // txtTesting
+            // lstFileUpload
             // 
-            this.txtTesting.Location = new System.Drawing.Point(215, 168);
-            this.txtTesting.Name = "txtTesting";
-            this.txtTesting.Size = new System.Drawing.Size(160, 20);
-            this.txtTesting.TabIndex = 2;
+            this.lstFileUpload.AllowDrop = true;
+            this.lstFileUpload.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.lstFileUpload.FormattingEnabled = true;
+            this.lstFileUpload.Location = new System.Drawing.Point(268, 173);
+            this.lstFileUpload.Name = "lstFileUpload";
+            this.lstFileUpload.Size = new System.Drawing.Size(520, 95);
+            this.lstFileUpload.TabIndex = 2;
             // 
             // Form1
             // 
@@ -58,20 +61,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WinReLoad.Properties.Resources.BG;
             this.ClientSize = new System.Drawing.Size(800, 500);
-            this.Controls.Add(this.txtTesting);
+            this.Controls.Add(this.lstFileUpload);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "ReLoad";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtTesting;
+        private System.Windows.Forms.ListBox lstFileUpload;
     }
 }
 
