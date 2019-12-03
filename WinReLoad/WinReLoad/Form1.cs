@@ -52,8 +52,16 @@ namespace WinReLoad
 
         private void Main_Load(object sender, EventArgs e)
         {
-            //Find APK and extract it to temp folder
-            //Check for 
+            //Find APK and extract it to temp folder and backup folder
+            //Check for libmodloader.so
+            //if found libmodloader { Go to mod loading form }
+            //else allow user to select install ReLoad
+            //function for installing reload:
+            //run apkifier and put in both lib files + mod folder
+            //delete old pistol whip apk from quest and install new with adb
+            //check it worked
+            //delete temp file
+            //move to mod loader form
 
 
         }
