@@ -40,6 +40,8 @@ namespace WinReLoad
         //VARIABLES
         bool installed = false;
         string modName = "";
+        string computerDrive;
+        int i;
 
         public Form1()
         {
@@ -53,11 +55,16 @@ namespace WinReLoad
 
         private void Main_Load(object sender, EventArgs e)
         {
-            FileInfo FileCheck = new FileInfo(@"This PC\\Quest\\Internal shared storage\\Android\\data\\com.cloudheadgames.pistolwhip\files" + "\\mods");
-            if (FileCheck.FullName != modName)
+            foreach (var drive in DriveInfo.GetDrives())
             {
-                Application.Exit();
-            }
+                computerDrive = drive.Name;
+                FileInfo FileCheck = new FileInfo(computerDrive + @"\Internal shared storage\Android\data\com.cloudheadgames.pistolwhip\files\mods");
+                if (FileCheck.FullName != modName)
+                {
+                    Application.Exit();
+                }
+            };
+            
         }
     }
 
