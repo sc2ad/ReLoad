@@ -117,6 +117,8 @@ namespace Emulamer.Utils
     
     public class Apkifier : IDisposable
     {
+
+
         private SHA1 _sha = SHA1Managed.Create();
         private UTF8Encoding _encoding = new UTF8Encoding(false);
         protected string _filename;
