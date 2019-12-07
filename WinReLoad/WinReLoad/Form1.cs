@@ -100,15 +100,15 @@ namespace WinReLoad
             Apkifier Apkify = new Apkifier(@"..\..\Temp\PistolWhip.apk");
 
             if (!Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) {
-                lstFileUpload.Text = "Working...";
+                lstFileUpload.Items.Add("Working...");
                 Apkify.Write(@"..\..\ModLoader\" + "libmodloader.so", @"\lib\arm64-v8a\", true, true);
                 Apkify.Write(@"..\..\ModLoader\" + "libmain.so", @"\lib\arm64-v8a\", true, true);
                 Apkify.Sign();
-                if (!Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) { lstFileUpload.Text = "Tasks complete!"; };
+                if (Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) { lstFileUpload.Items.Add("Tasks Completed!"); } else { lstFileUpload.Items.Add("Oops! Something has gone wrong.."); }; ;
                 } else
                     {
-                        lstFileUpload.Text = "Already Installed";
-                    installed = true;
+                lstFileUpload.Items.Add("Already installed.");
+                installed = true;
                     }
             
         }
