@@ -25,7 +25,7 @@ using System.Security.Cryptography;
 using Org.BouncyCastle.Asn1.Cms;
 using System.Text.RegularExpressions;
 using Org.BouncyCastle.Utilities.IO.Pem;
-
+using Emulamer.Utils;
 
 
 using OpenSsl = Org.BouncyCastle.OpenSsl;
@@ -89,10 +89,28 @@ namespace WinReLoad
 
             //Set Up Copy + Paste Vars
             string sourcePath = fileLocation[0];
-            string targetPath = @"..\..\Temp\" + "PistolWhip.apk";
-            string targetPathb = @"..\..\Backup\" + "PistolWhip.apk";
+            string targetPath = @"..\..\Temp\PistolWhip.apk";
+            string targetPathb = @"..\..\Backup\PistolWhip.apk";
 
             System.IO.File.Copy(sourcePath, targetPath, true);
+            System.IO.File.Copy(sourcePath, targetPathb, true);
+
+            //Use Apkifier (Thanks Emulamer!) to put in mod files
+
+            Apkifier Apkify = new Apkifier(@"..\..\Temp\PistolWhip.apk");
+
+            if (!Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) {
+                lstFileUpload.Text = "Working...";
+                Apkify.Write(@"..\..\ModLoader\" + "libmodloader.so", @"\lib\arm64-v8a\", true, true);
+                Apkify.Write(@"..\..\ModLoader\" + "libmain.so", @"\lib\arm64-v8a\", true, true);
+                Apkify.Sign();
+                if (!Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) { lstFileUpload.Text = "Tasks complete!"; };
+                } else
+                    {
+                        lstFileUpload.Text = "Already Installed";
+                    installed = true;
+                    }
+            
         }
     }
     
