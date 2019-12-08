@@ -1,0 +1,3 @@
+[submodule "Apkifier"]
+	path = Apkifier
+	url = https://github.com/emulamer/Apkifier.git

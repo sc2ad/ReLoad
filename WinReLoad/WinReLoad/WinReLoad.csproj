@@ -53,9 +53,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apkifier">
-      <HintPath>..\..\..\..\DLL\Apkifier\Apkifier\Apkifier\bin\Release\netstandard2.0\Apkifier.dll</HintPath>
-    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resources\BouncyCastle.Crypto.dll</HintPath>
@@ -141,7 +138,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\libmain.bmp" />
+    <ProjectReference Include="..\..\Apkifier\Apkifier.csproj">
+      <Project>{12e616b5-3043-4e73-8007-71dc716edf4a}</Project>
+      <Name>Apkifier</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
