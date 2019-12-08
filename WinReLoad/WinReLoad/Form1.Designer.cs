@@ -48,11 +48,15 @@
             // lstFileUpload
             // 
             this.lstFileUpload.AllowDrop = true;
-            this.lstFileUpload.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.lstFileUpload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.lstFileUpload.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstFileUpload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstFileUpload.ForeColor = System.Drawing.Color.White;
             this.lstFileUpload.FormattingEnabled = true;
-            this.lstFileUpload.Location = new System.Drawing.Point(268, 173);
+            this.lstFileUpload.ItemHeight = 18;
+            this.lstFileUpload.Location = new System.Drawing.Point(425, 187);
             this.lstFileUpload.Name = "lstFileUpload";
-            this.lstFileUpload.Size = new System.Drawing.Size(520, 95);
+            this.lstFileUpload.Size = new System.Drawing.Size(363, 200);
             this.lstFileUpload.TabIndex = 2;
             // 
             // Form1

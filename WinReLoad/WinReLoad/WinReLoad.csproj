@@ -53,6 +53,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Apkifier">
+      <HintPath>..\..\..\..\DLL\Apkifier\Apkifier\Apkifier\bin\Release\netstandard2.0\Apkifier.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resources\BouncyCastle.Crypto.dll</HintPath>
