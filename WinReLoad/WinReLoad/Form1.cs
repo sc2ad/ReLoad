@@ -26,9 +26,13 @@ using Org.BouncyCastle.Asn1.Cms;
 using System.Text.RegularExpressions;
 using Org.BouncyCastle.Utilities.IO.Pem;
 using Emulamer.Utils;
-
+using System.Net;
 
 using OpenSsl = Org.BouncyCastle.OpenSsl;
+
+
+
+
 
 
     
@@ -59,17 +63,7 @@ namespace WinReLoad
 
         private void Main_Load(object sender, EventArgs e)
         {
-            //Find APK and extract it to temp folder and backup folder (skip for now)
-            //Check for libmodloader.so
-            //if found libmodloader { Go to mod loading form }
-            //else allow user to select install ReLoad
-            //function for installing reload:
-            //run apkifier and put in both lib files + mod folder
-            //delete old pistol whip apk from quest and install new with adb
-            //check it worked
-            //delete temp file
-            //move to mod loader form
-
+            
 
         }
         //Animation Stuff For Drag + Drop
@@ -83,36 +77,67 @@ namespace WinReLoad
         //Drag + Drop
         private void listBox1_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
+            //Create Temp Folder
+            if (!Directory.Exists("Temp")) { 
+                Directory.CreateDirectory("Temp");                
+            };
+
+            //Install Mod Loader Files
+            if (Directory.Exists("Temp"))
+            {
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/sc2ad/pistol-whip-hook/releases/download/v1.0.0/libmodloader.so", "Temp/libmodloader.so");
+                    client.DownloadFile("https://github.com/sc2ad/pistol-whip-hook/releases/download/v1.0.0/libmain.so", "Temp/libmain.so");
+                }
+            }
+            else
+            {
+                lstFileUpload.Items.Add("Temp folder doesn't exist..");
+            };
+
             //Get File Location
-            string[] fileLocation = (string[])e.Data.GetData(DataFormats.FileDrop, false);            
-            lstFileUpload.Items.Add(fileLocation[0]);
+            string[] fileLocation = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                lstFileUpload.Items.Add(fileLocation[0]);
 
-            //Set Up Copy + Paste Vars
-            string sourcePath = fileLocation[0];
-            string targetPath = @"..\..\Temp\PistolWhip.apk";
-            /* string targetPathb = @"..\..\Backup\PistolWhip.apk"; Uncomment for creation of a backup apk*/
+                //Set Up Copy + Paste Vars
+                string sourcePath = fileLocation[0];
+                string targetPath = @"Temp/PistolWhip.apk";
+                /* string targetPathb = @"..\..\Backup\PistolWhip.apk"; Uncomment for creation of a backup apk*/
 
-            //Copy apk
-            lstFileUpload.Items.Add("Creating temp apk..");
-            System.IO.File.Copy(sourcePath, targetPath, true);
+                //Copy APK
+                lstFileUpload.Items.Add("Creating temp apk..");
+                System.IO.File.Copy(sourcePath, targetPath, true);
             /* System.IO.File.Copy(sourcePath, targetPathb, true); Uncomment for creation of a backup apk*/
 
-            //Use Apkifier (Thanks Emulamer!) to put in mod files
+            if (File.Exists(@"Temp/libmain.so") & File.Exists(@"Temp/libmodloader.so") & File.Exists("Temp/PistolWhip.apk"))
+            {
 
-            Apkifier Apkify = new Apkifier(@"..\..\Temp\PistolWhip.apk");
+                //Use Apkifier (Thanks Emulamer!) to put in mod files
 
-            if (!Apkify.FileExists(@"lib\arm64-v8a" + "libmodloader.so")) {
-                lstFileUpload.Items.Add("Working...");
-                Apkify.Write(@"..\..\ModLoader\libmodloader.so", Path.Combine(@"lib/arm64-v8a/", "libmodloader.so"), true, true);
-                Apkify.Write(@"..\..\ModLoader\libmain.so", @"lib\arm64-v8a\libmain.so", true, true);
-                Apkify.Sign();
-                if (Apkify.FileExists(@"lib\arm64-v8a\libmodloader.so")) { lstFileUpload.Items.Add("Tasks Completed!"); } else { lstFileUpload.Items.Add("Oops! Something has gone wrong.."); }; ;
-                } else
-                    {
-                lstFileUpload.Items.Add("Already installed.");
-                installed = true;
-                    }
-            
+                Apkifier Apkify = new Apkifier(@"Temp/PistolWhip.apk");
+
+                if (!Apkify.FileExists(@"lib\arm64-v8a" + "libmodloader.so"))
+                {
+                    lstFileUpload.Items.Add("Working...");
+                    Apkify.Write(@"Temp/libmodloader.so", Path.Combine(@"lib/arm64-v8a/", "libmodloader.so"), true, true);
+                    Apkify.Write(@"Temp/libmain.so", @"lib/arm64-v8a/libmain.so", true, true);
+                    Apkify.Sign();
+                    if (Apkify.FileExists(@"lib/arm64-v8a/libmodloader.so")) { lstFileUpload.Items.Add("Tasks Completed!"); } else { lstFileUpload.Items.Add("Oops! Something has gone wrong.."); }; ;
+                }
+                else
+                {
+                    lstFileUpload.Items.Add("Already installed.");
+                    installed = true;
+                }
+
+
+            } else
+            {
+                lstFileUpload.Items.Add("Oops, not all necessary files were copied or downloaded");
+            }
+
+
         }
     }
     
