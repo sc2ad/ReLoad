@@ -90,21 +90,23 @@ namespace WinReLoad
             //Set Up Copy + Paste Vars
             string sourcePath = fileLocation[0];
             string targetPath = @"..\..\Temp\PistolWhip.apk";
-            string targetPathb = @"..\..\Backup\PistolWhip.apk";
+            /* string targetPathb = @"..\..\Backup\PistolWhip.apk"; Uncomment for creation of a backup apk*/
 
+            //Copy apk
+            lstFileUpload.Items.Add("Creating temp apk..");
             System.IO.File.Copy(sourcePath, targetPath, true);
-            System.IO.File.Copy(sourcePath, targetPathb, true);
+            /* System.IO.File.Copy(sourcePath, targetPathb, true); Uncomment for creation of a backup apk*/
 
             //Use Apkifier (Thanks Emulamer!) to put in mod files
 
             Apkifier Apkify = new Apkifier(@"..\..\Temp\PistolWhip.apk");
 
-            if (!Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) {
+            if (!Apkify.FileExists(@"lib\arm64-v8a" + "libmodloader.so")) {
                 lstFileUpload.Items.Add("Working...");
-                Apkify.Write(@"..\..\ModLoader\" + "libmodloader.so", @"\lib\arm64-v8a\", true, true);
-                Apkify.Write(@"..\..\ModLoader\" + "libmain.so", @"\lib\arm64-v8a\", true, true);
+                Apkify.Write(@"..\..\ModLoader\libmodloader.so", Path.Combine(@"lib/arm64-v8a/", "libmodloader.so"), true, true);
+                Apkify.Write(@"..\..\ModLoader\libmain.so", @"lib\arm64-v8a\libmain.so", true, true);
                 Apkify.Sign();
-                if (Apkify.FileExists(@"\lib\arm64-v8a" + "libmodloader.so")) { lstFileUpload.Items.Add("Tasks Completed!"); } else { lstFileUpload.Items.Add("Oops! Something has gone wrong.."); }; ;
+                if (Apkify.FileExists(@"lib\arm64-v8a\libmodloader.so")) { lstFileUpload.Items.Add("Tasks Completed!"); } else { lstFileUpload.Items.Add("Oops! Something has gone wrong.."); }; ;
                 } else
                     {
                 lstFileUpload.Items.Add("Already installed.");
@@ -115,7 +117,7 @@ namespace WinReLoad
     }
     
 
-
+   
 
 
 
