@@ -81,8 +81,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstFileUpload);
             this.Controls.Add(this.button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReLoad";
             this.ResumeLayout(false);
             this.PerformLayout();
