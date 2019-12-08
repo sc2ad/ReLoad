@@ -53,7 +53,7 @@ namespace WinReLoad
 
         private void Main_Load(object sender, EventArgs e)
         {
-            lstFileUpload.Items.Add("Drag + Drop the apk of PistolWhip you would like to mod!");
+            
         }
         //Animation Stuff For Drag + Drop
         private void listBox1_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
